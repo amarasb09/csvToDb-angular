@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="grid innerContainer">
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-3">
+          <input type="file" (change)="fileSelected($event)" class="form-control" placeholder="Select You CSV File"
+            aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button (click)="uploadFile()" [disabled]="selectedFile.length<=0" class="input-group-text"
+              id="basic-addon2">Upload
+              File</button>
+          </div>
+        </div>
+        <p>Make sure you csv must contain these fields : ['id','level','cvss','vulnerability','solution','reference']
+        </p>
+      </div>
+    </div>
+    <div class="row" *ngIf="error">
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+          {{error.message}}
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="success">
+      <div class="col-12">
+        <div class="alert alert-success" role="alert">
+          {{success.message}}
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="processing && processing.status">
+      <div class="col-12">
+        <div class="alert alert-success" role="alert">
+          {{ processing.message}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="records.length">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Record Id</th>
+            <th scope="col">Level</th>
+            <th scope="col">CVSS</th>
+            <th scope="col">Vulnerability</th>
+            <th scope="col">Solution</th>
+            <th scope="col">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of records; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{item.recordId}}</td>
+            <td>{{item.level}}</td>
+            <td>{{item.cvss}}</td>
+            <td>{{item.vulnerability}}</td>
+            <td>{{item.solution}}</td>
+            <td>{{item.reference}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
